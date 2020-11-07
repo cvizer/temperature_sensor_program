@@ -8,6 +8,8 @@
 
 This is a 2 part program. One part ([recordTemps.py](https://github.com/cvizer/temperature_sensor_program/blob/main/recordTemps.py)) obtains a temperature reading from a sensor every 60 seconds and records that temperature into a database on MongoDB. The second part ([sendAlert.py](https://github.com/cvizer/temperature_sensor_program/blob/main/sendAlert.py)) checks the latest temperature reading every 60 seconds and sends a text message to alert you if the temperature is out of spec.
 
+> See a real-time graph that represents the program running right now: https://cvizer.github.io/temp-monitoring-website/
+
 ---
 
 ## You Will Need
