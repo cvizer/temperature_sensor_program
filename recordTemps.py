@@ -8,7 +8,10 @@ cluster = MongoClient("")
 db = cluster["test"]
 collection = db["test"]
 
-postCount = collection.estimated_document_count()
+newest = collection.find({}).limit(1).sort([('$natural', pymongo.DESCENDING)])
+
+for y in newest:
+    postCount = y["_id"]
 
 starttime = time.time()
 while True:
@@ -46,9 +49,18 @@ while True:
     val2 = int(val1)
     val1 = str(val2)
 
-    post = {"_id":postCount, "temperature":val2, "time": datetime.utcnow()}
+    oldest = collection.find({}).limit(1)
+
+    for u in oldest:
+        firstId = u["_id"]
+
+    myQuery = { "_id": firstId }
+    # Deletes the oldest record in the database, so that it doesn't keep getting bigger and bigger.
+    collection.delete_one(myQuery)
 
     postCount +=1
+
+    post = {"_id":postCount, "temperature":val2, "time": datetime.utcnow()}
 
     collection.insert_one(post)
 
